@@ -13,7 +13,7 @@ from src.utils import save_object,evaluate_model
 from src.logger import logging
 from catboost import CatBoost
 from sklearn.ensemble import AdaBoostRegressor,GradientBoostingRegressor,RandomForestRegressor
-
+from src.params import params
 
 @dataclass
 class modeltrainerconfig:
@@ -31,16 +31,18 @@ class modeltrainer:
                 test_array[:,-1]
             )
             models = {
-                'random_forest': RandomForestRegressor(),
-                'DecisionTreeRegressor':DecisionTreeRegressor(),
-                'GradientBoostingRegressor': GradientBoostingRegressor(),
-                'LinearRegression' : LinearRegression(),
+                'Decision Tree': DecisionTreeRegressor(),
+                'Random Forest': RandomForestRegressor(),
+                'Gradient Boosting': GradientBoostingRegressor(),
+                'Linear Regression': LinearRegression(),
                 'knn': KNeighborsRegressor(),
-                'XGBRegressor' : XGBRegressor(),
-                'AdaBoostRegressor' : AdaBoostRegressor(),
+                'XGBRegressor': XGBRegressor(),
+                # 'CatBoosting Regressor': CatBoost(verbose=False),
+                'AdaBoost Regressor': AdaBoostRegressor(),
             }
+
             model_report:dict  = evaluate_model(x_train = x_train,y_train = y_train,x_test=x_test,y_test=y_test,
-                                                models=models)
+                                                models=models,params=params)
             best_model_score = max(sorted(model_report.values()))
             best_model_name = list(model_report.keys())[
                 list(model_report.values()).index(best_model_score)
