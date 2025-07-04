@@ -7,7 +7,7 @@ from src.logger import logging
 from dataclasses import dataclass
 from src.components.data_transformation import datatransforamtion
 from src.components.data_transformation import datatransformationconfig
-
+from src.components.model_trainer import modeltrainerconfig,modeltrainer
 
 @dataclass
 class dataingestionconfig:
@@ -42,5 +42,7 @@ if __name__=="__main__":
     obj = dataingestion()
     train_data,test_data = obj.initiate_data_ingestion()
     data_transformation = datatransforamtion()
-    data_transformation.initiate_transformaion(train_data,test_data)
+    train_arr,test_arr,_ = data_transformation.initiate_transformaion(train_data,test_data)
+    model_trainer = modeltrainer()
+    print(model_trainer.initiate_model_trainer(train_arr,test_arr))
     
