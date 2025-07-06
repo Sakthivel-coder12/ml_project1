@@ -19,5 +19,4 @@ author='sakthivel',
 author_email='sakthivel790460@gmail.com',
 packages= find_packages(),
 install_requires = get_requirements('requirements.txt')  ## need to create the get_requirements (user defined function)
-
 )
